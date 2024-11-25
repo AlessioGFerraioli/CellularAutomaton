@@ -2,7 +2,7 @@
 """
 Created on Thu Mar 12 17:51:14 2020
 
-@author: aless
+@author: Alessio Giuseppe Ferraioli
 
 CELL AUTOMATA GAME
 
@@ -30,9 +30,7 @@ def generate_state(nsteps):
 
 def evolve(old_state, rule):
     '''takes in input a state and a numeric rule; returns the evolved state for the next step. 
-
     the rules of the evolution are given by Rule30 by Wolfram, available at:
-        
         https://mathworld.wolfram.com/Rule30.html'''
     
     
@@ -44,15 +42,12 @@ def evolve(old_state, rule):
         if rule_bin[i]=='1':
             winning.append(len(rule_bin)-i-1)           # append to the winning numbers the positions of the 1s in the binary rule
             
-    
     # initialize the new state as all 0s
     new_state='0'
     for i in range(len(old_state)-1):
         new_state=new_state+'0'
     
-
     # i use the convention that the boundaries are always dead because it's the simplest condition to implementate (I simply do not check for the boundaries and left them in the dead state)    
-   
     for i in range(len(old_state)-2):        # l'indice i mi fa avanzare lungo il mio stato considerando 3 caselle alla volta
         casella_bin=int(old_state[i:i+3], base=2)      # interpreto la casella come un numero binario e lo salvo in casella_bin
         
@@ -78,14 +73,7 @@ def simulation(nsteps, rule):
     return states_seq
 
 
-    
-states_seq=simulation(10, 50)
 
-
-for i in range(len(states_seq)):
-    print(states_seq[i])
-    print('\n')
-        
 
 ########################################################
 
@@ -100,3 +88,18 @@ def test_generation_single_alive():
     state = generate_state()
     num_of_0 = sum(1 for i in state if i=='0')
     assert num_of_0 == 1
+    
+
+def format_print(state):
+    ''' functoin to print the state in a more readable format,
+    substituing the 0s with '.' and the 1s with '*' '''
+    return ''.join('*' if i=='1' else '.' for i in state)
+
+
+# start the cell automaton
+states_seq=simulation(10, 50)
+
+
+for i in range(len(states_seq)):
+    print(format_print(states_seq[i]))
+        
