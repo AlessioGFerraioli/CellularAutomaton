@@ -129,9 +129,11 @@ class CellularAutomaton:
 
 
 # start the cell automaton
-size = 20
-rule = 30
-iterations = 20
+size = int(input("Size: "))
+rule = int(input("Rule: "))
+iterations = int(input("Iterations: "))
+
+
 
 automaton = CellularAutomaton(size, rule)
 
